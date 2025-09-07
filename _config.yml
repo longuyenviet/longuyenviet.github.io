@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: ""
 description: "Researcher in AI and Quantum Computing for Wireless Communications"
-url: "https://longuyenviet.github.io"
+url: "https://longuyenviet.com"
 author:
   name: "Long V. Nguyen"
 baseurl: "" # the subpath of your site, e.g. /blog
