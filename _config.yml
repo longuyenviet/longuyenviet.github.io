@@ -16,8 +16,7 @@
 title: ""
 description: "Researcher in AI and Quantum Computing for Wireless Communications"
 url: "https://longuyenviet.com"
-author:
-  name: "Long V. Nguyen"
+author: "Long V. Nguyen"
 baseurl: "" # the subpath of your site, e.g. /blog
 
 # Build settings
@@ -25,6 +24,7 @@ markdown: kramdown
 plugins:
   - jekyll-email-protect
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
