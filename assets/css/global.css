@@ -56,7 +56,8 @@ h6, .h6 {
 
 .navbar {
     opacity: 0.85;
-    font-size: 1.05rem;
+    font-size: 1.12rem;
+    background-color: rgb(186, 218, 255) !important;
 }
 
 .navbar-brand:hover {

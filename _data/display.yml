@@ -12,8 +12,7 @@ dark_mode:
   enabled: true
   default_theme: "light"  # or "dark"
 
-# Feel free to replace the footer text if you would like to, but I will greatly appreciate it 
-# if you keep the link to the template so that more people can benefit from it. Thanks!
+# Footer text 
 footer_text: >-
   © Copyright 2025 Long V. Nguyen, inspired by <a href="https://luost.me/" target="_blank">Shitong Luo</a>.
 

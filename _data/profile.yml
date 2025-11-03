@@ -3,8 +3,8 @@ secondary_name: ""
 navbar_name: "Long Viet"
 
 positions:
-- logo: #/assets/images/badges/MUN_logo.png
-  name: PhD Student @ ECE, Memorial University (2025 - Present)
+- logo: /assets/images/badges/MUN_logo.png
+  name: PhD Student in Wireless Communication @ ECE, Memorial University (2025 - Present)
 
 email: "lnguyen@mun.ca"
 # cv_link: link-to-your-cv-file
@@ -22,12 +22,15 @@ short_bio: >-
   <p>
     Hi! I'm Long V. Nguyen (Nguyễn Viết Long in Vietnamse), a first-year PhD student majoring in Computer Engineering at <a href="https://www.mun.ca/engineering/ece/" target="_blank">ECE Department, Memorial University</a>, Canada. 
     During my research, I’m very fortunate to be advised by <a href="https://sites.google.com/site/trungqduong/home" target="_blank">Prof. Trung Duong</a>, a Canada Excellence Research Chair <a href="https://www.cerc.gc.ca/home-accueil-eng.aspx" target="_blank">(CERC)</a>.
-    Before that, I graduated from the Elitech Program at <a href="https://hust.edu.vn/en/" target="_blank">Hanoi University of Science and Technology</a>, Vietnam.
+    Before that, I graduated from the Elitech Program at <a href="https://hust.edu.vn/en/" target="_blank">Hanoi University of Science and Technology</a>, Vietnam <img src="/assets/images/badges/vietnam_c.png" alt="VN" style="width:20px; height:20px; vertical-align: middle;">.
   </p>
 
   <p>
-    My main research interests are Machine Learning and Quantum Computing in Intelligent Networks, especially Semantic Communications for Vehicular Networks. With the efforts in these fields, our key objective is to <strong>seamlessly integrate the digital, physical and biological worlds to develop a "wireless without limit” connectivity</strong> 
-    in the realm of next-generation communication technology, contributing to the developments of Intelligent Transportation Systems. 
+    My main research interests are Generative AI, Deep Reinforcement Learning, and Quantum Computing in Intelligent Wireless Networks, 
+    especially <strong style="color: DodgerBlue;">Semantic Communications for Vehicular Networks</strong>, 
+    contributing to the developments of Intelligent Transportation Systems (ITS). With the efforts in these fields, 
+    our key objective is to <strong>seamlessly integrate the digital, physical and biological worlds to develop a "wireless without limit” connectivity</strong> 
+    in the realm of next-generation communication technology. 
   </p>
 
   <p>
