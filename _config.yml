@@ -39,9 +39,12 @@ logo: /assets/images/etc/favicon.png
 # No `twitter:` block on purpose: without a real handle, jekyll-seo-tag emits
 # a broken `twitter:site content="@"` tag.
 
-# Search Console / Bing verification — paste the token, not the whole meta tag.
-# webmaster_verifications:
-#   google: ""
+# Search Console / Bing verification — the token only, not the whole meta tag.
+# jekyll-seo-tag renders this as <meta name="google-site-verification" ...>.
+# Do not remove it: Google re-checks periodically and will unverify the
+# property if the tag disappears.
+webmaster_verifications:
+  google: "mP1BaMkYmoK6CxZleEMxSjny92Us1xg04eVMW7cD4MU"
 #   bing: ""
 
 # ---------------------------------------------------------------------------
