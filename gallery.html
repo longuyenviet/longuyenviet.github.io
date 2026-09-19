@@ -6,15 +6,14 @@ permalink: /gallery/
 redirect_from:
   - /gallery.html
 description: >-
-  Photography and visual notes by Long V. Nguyen — landscapes and portraits
-  from Newfoundland, Vietnam and travels, alongside research-related visuals.
+  A collection of photographs, visual notes, and other interesting things.
 container_class: container-xl
 ---
 
-<header class="page-header">
+<!-- <header class="page-header">
     <h1>Gallery</h1>
     <p class="page-header-sub">Photographs, visual notes and things worth keeping.</p>
-</header>
+</header> -->
 
 {% assign cards_by_group = site.gallery | sort: "date" | reverse | where: "show", true | group_by_exp: "item", "item.group" %}
 {% for group in cards_by_group %}

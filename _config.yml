@@ -12,8 +12,7 @@ tagline: "Semantic Communications & AI for Wireless Networks"
 description: >-
   Long V. Nguyen (Nguyễn Viết Long) is a PhD student in Computer Engineering at
   Memorial University of Newfoundland, working on semantic communications,
-  generative AI, deep reinforcement learning and quantum computing for
-  next-generation intelligent wireless networks.
+  generative AI, deep reinforcement learning for next-generation intelligent wireless networks.
 url: "https://longuyenviet.github.io"
 baseurl: ""            # subpath of the site, e.g. /blog
 lang: en-CA

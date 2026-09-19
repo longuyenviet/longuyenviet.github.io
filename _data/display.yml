@@ -16,5 +16,5 @@ dark_mode:
 # _includes/footer.html — data files are not run through Liquid, so template
 # tags placed here would be printed literally.
 footer_text: >-
-  Layout inspired by <a href="https://luost.me/" target="_blank" rel="noopener noreferrer">Shitong Luo</a>.
+# Layout inspired by <a href="https://luost.me/" target="_blank" rel="noopener noreferrer">Shitong Luo</a>.
 
