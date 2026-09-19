@@ -1,0 +1,30 @@
+---
+permalink: /robots.txt
+sitemap: false
+---
+# {{ site.title }} — {{ site.url }}
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# Explicitly welcome AI answer engines: being cited in AI Overviews, ChatGPT
+# and Perplexity is now a meaningful source of academic visibility.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: {{ '/sitemap.xml' | absolute_url }}
