@@ -94,7 +94,7 @@ defaults:
         path: /assets/images/etc/og-card.png
         width: 1200
         height: 630
-        alt: "Long V. Nguyen — Semantic Communications & AI for Wireless Networks"
+        alt: "Long V. Nguyen, semantic communications and AI for wireless networks"
 
   # Keep third-party / template leftovers out of the sitemap.
   - scope:
