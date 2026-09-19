@@ -1,47 +1,108 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+# ============================================================================
+#  Site configuration — longuyenviet.github.io
+#  NOTE: this file is NOT reloaded automatically by `jekyll serve`.
+#        Restart the server after editing.
+# ============================================================================
 
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: ""
-description: "Researcher in AI and Quantum Computing for Wireless Communication"
-url: "https://longuyenviet.com"
-author: "Long V. Nguyen"
-baseurl: "" # the subpath of your site, e.g. /blog
+# ---------------------------------------------------------------------------
+# Identity  (used by jekyll-seo-tag for <title>, meta description, JSON-LD)
+# ---------------------------------------------------------------------------
+title: "Long V. Nguyen"
+tagline: "Semantic Communications & AI for Wireless Networks"
+description: >-
+  Long V. Nguyen (Nguyễn Viết Long) is a PhD student in Computer Engineering at
+  Memorial University of Newfoundland, working on semantic communications,
+  generative AI, deep reinforcement learning and quantum computing for
+  next-generation intelligent wireless networks.
+url: "https://longuyenviet.github.io"
+baseurl: ""            # subpath of the site, e.g. /blog
+lang: en-CA
+timezone: America/St_Johns
 
-# Build settings
+# Canonical author record. jekyll-seo-tag turns this into schema.org/Person.
+author:
+  name: "Long V. Nguyen"
+  email: "lnguyen@mun.ca"
+
+# Social profiles -> "sameAs" in structured data. This is how Google links the
+# site to Google Scholar / ORCID / GitHub and builds an entity for you.
+social:
+  name: "Long V. Nguyen"
+  links:
+    - https://scholar.google.com/citations?user=ErZnjXoAAAAJ
+    - https://github.com/longuyenviet
+    - https://www.linkedin.com/in/longgviet04
+    # - https://orcid.org/0000-0000-0000-0000   # add once you have an ORCID iD
+
+# Default sharing image is applied per page through `defaults` below, because
+# jekyll-seo-tag reads `page.image` only — a site-level `image:` is ignored.
+logo: /assets/images/etc/favicon.png
+# No `twitter:` block on purpose: without a real handle, jekyll-seo-tag emits
+# a broken `twitter:site content="@"` tag.
+
+# Search Console / Bing verification — paste the token, not the whole meta tag.
+# webmaster_verifications:
+#   google: ""
+#   bing: ""
+
+# ---------------------------------------------------------------------------
+# Build
+# ---------------------------------------------------------------------------
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+sass:
+  style: compressed
+
 plugins:
-  - jekyll-email-protect
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-redirect-from
+  # jekyll-email-protect only runs when the site is built by GitHub Actions
+  # (see .github/workflows/pages.yml). It is ignored by the classic GitHub
+  # Pages builder, so templates must not depend on it for correctness.
+  - jekyll-email-protect
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - vendor/
+  - .github/
+  - .jekyll-cache/
 
-# timezone: Asia/Shanghai
-
+# ---------------------------------------------------------------------------
+# Collections
+# ---------------------------------------------------------------------------
 collections:
   - publications
   - news
   - gallery
   - notes
+
+# ---------------------------------------------------------------------------
+# Front-matter defaults
+# ---------------------------------------------------------------------------
+defaults:
+  # Default Open Graph / Twitter sharing card for every page.
+  - scope:
+      path: ""
+    values:
+      image:
+        path: /assets/images/etc/og-card.png
+        width: 1200
+        height: 630
+        alt: "Long V. Nguyen — Semantic Communications & AI for Wireless Networks"
+
+  # Keep third-party / template leftovers out of the sitemap.
+  - scope:
+      path: "assets/images/files"
+    values:
+      sitemap: false
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post

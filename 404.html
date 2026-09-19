@@ -1,9 +1,15 @@
 ---
 layout: prompt
-title: 404 - Page Not Found
+title: Page not found
+noindex: true
+permalink: /404.html
 ---
 <h1 class="mt-5">404</h1>
-<p class="lead">The requested page could not be found.</p>
-<p><a href="{{ '/' | relative_url }}">Go home</a></p>
+<p class="lead">That page does not exist — it may have been renamed or removed.</p>
+<p>
+    Try the <a href="{{ '/' | relative_url }}">homepage</a>,
+    the <a href="{{ '/publications/' | relative_url }}">publications</a>,
+    or the <a href="{{ '/notes/' | relative_url }}">notes</a>.
+</p>
 
-<!-- Custom error page for handling 404 (page not found) errors with site branding. -->
+<!-- Custom 404 page. Marked noindex so search engines do not index the error itself. -->

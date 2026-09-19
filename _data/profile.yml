@@ -17,12 +17,21 @@ github: longuyenviet
 linkedin: longgviet04
 # orcid: 0000-0000-0000-0000
 
+# Short, scannable research areas rendered as chips under the name.
+# These double as on-page keyword signals for the topics you want to rank for.
+research_tags:
+  - Semantic Communications
+  - Generative AI
+  - Deep Reinforcement Learning
+  - Quantum Computing
+  - Vehicular Networks / 6G
+
 short_bio_text_justify: false
 short_bio: >-
   <p>
-    Hi! I'm Long V. Nguyen (Nguyễn Viết Long in Vietnamse), a first-year PhD student majoring in Computer Engineering at <a href="https://www.mun.ca/engineering/ece/" target="_blank">ECE Department, Memorial University</a>, Canada. 
-    During my research, I’m very fortunate to be advised by <a href="https://sites.google.com/site/trungqduong/home" target="_blank">Prof. Trung Duong</a>, a Canada Excellence Research Chair <a href="https://www.cerc.gc.ca/home-accueil-eng.aspx" target="_blank">(CERC)</a>.
-    Before that, I graduated from the Elitech Program at <a href="https://hust.edu.vn/en/" target="_blank">Hanoi University of Science and Technology</a>, Vietnam <img src="/assets/images/badges/vietnam_c.png" alt="VN" style="width:20px; height:20px; vertical-align: middle;">.
+    Hi! I'm Long V. Nguyen (Nguyễn Viết Long in Vietnamese), a PhD student in Computer Engineering at the <a href="https://www.mun.ca/engineering/ece/" target="_blank" rel="noopener noreferrer">Department of Electrical and Computer Engineering, Memorial University of Newfoundland</a>, Canada. 
+    During my research, I’m very fortunate to be advised by <a href="https://sites.google.com/site/trungqduong/home" target="_blank" rel="noopener noreferrer">Prof. Trung Q. Duong</a>, a Canada Excellence Research Chair <a href="https://www.cerc.gc.ca/home-accueil-eng.aspx" target="_blank" rel="noopener noreferrer">(CERC)</a>.
+    Before that, I graduated from the Elitech Program at <a href="https://hust.edu.vn/en/" target="_blank" rel="noopener noreferrer">Hanoi University of Science and Technology</a>, Vietnam <img src="/assets/images/badges/vietnam_c.png" alt="Flag of Vietnam" width="20" height="20" style="width:20px; height:20px; vertical-align: middle;">.
   </p>
 
   <p>

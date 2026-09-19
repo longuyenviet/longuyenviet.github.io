@@ -2,20 +2,61 @@
 layout: default
 title: Notes
 navbar_title: Notes
-permalink: /notes
+permalink: /notes/
+redirect_from:
+  - /notes.html
+description: >-
+  Research and engineering notes by Long V. Nguyen on wireless communications,
+  deep learning, semantic communication systems and the practical side of
+  running experiments.
 ---
 
-<!-- <h1>Notes</h1>
+<header class="page-header">
+    <h1>Notes</h1>
+    <p class="page-header-sub">
+        Working notes on wireless communications, deep learning and the
+        unglamorous mechanics of running research experiments.
+    </p>
+</header>
 
-{% for post in site.posts %}
-  <div class="post">
-    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-    <p><i>{{ post.date | date: "%B %d, %Y" }}</i></p>
-    <p>{{ post.excerpt }}</p>
-  </div>
-{% endfor %} -->
-<div>
-  <iframe src="https://longuyen.notion.site/ebd/260e7b4e7bf980e88200d4d49f6eb736" width="100%" height="800" frameborder="0" allowfullscreen>
-</div>
+{%- assign posts = site.posts -%}
+{%- if posts.size > 0 %}
+<section class="note-list" aria-labelledby="written-notes">
+    <h2 id="written-notes" class="section-heading">Written here</h2>
+    <ul class="note-list-items">
+        {%- for post in posts %}
+        <li class="note-item">
+            <a class="note-item-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <div class="note-item-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+            </div>
+            {%- if post.excerpt %}
+            <p class="note-item-excerpt">{{ post.excerpt | strip_html | strip | truncate: 220 }}</p>
+            {%- endif %}
+        </li>
+        {%- endfor %}
+    </ul>
+</section>
+{%- endif %}
 
-<!-- Blog listing page that displays all blog posts from the _posts collection in a grid layout with pagination support. -->
+<section class="note-embed" aria-labelledby="notion-notes">
+    <h2 id="notion-notes" class="section-heading">Notebook</h2>
+    <p class="text-muted small">
+        Longer-running notes live in a Notion notebook, embedded below.
+        <a href="https://longuyen.notion.site/260e7b4e7bf980e88200d4d49f6eb736" target="_blank" rel="noopener noreferrer">Open it in a new tab</a>
+        if the embed does not load.
+    </p>
+    <div class="note-embed-frame">
+        <iframe
+            src="https://longuyen.notion.site/ebd/260e7b4e7bf980e88200d4d49f6eb736"
+            title="Long V. Nguyen's research notebook on Notion"
+            loading="lazy"
+            width="100%"
+            height="800"
+            frameborder="0"
+            allowfullscreen></iframe>
+    </div>
+</section>
+
+<!-- Notes landing page: lists posts from the _posts collection (indexable text)
+     and embeds the Notion notebook below it. -->

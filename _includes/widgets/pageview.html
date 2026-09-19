@@ -1,6 +1,33 @@
-<div style="text-align: center; margin: 20px 0;">
-<div style="width: 250px; height: 250px; margin: 0 auto; overflow: hidden;">
-<script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=j4bX_U1ChVDtaTwglQ__PJvYC2tY2tlrw3RCrtNvJhY"></script>
-</div>
-</div>
+{%- comment -%}
+  Clustrmaps visitor globe.
 
+  Loaded only once the widget scrolls into view, and over HTTPS rather than a
+  protocol-relative URL. It is a third-party script in the critical path
+  otherwise, and it contributes nothing to indexable content.
+{%- endcomment -%}
+<div class="visitor-globe" aria-hidden="true">
+    <div class="visitor-globe-slot" id="clstr-slot"></div>
+</div>
+<script>
+(function () {
+    var slot = document.getElementById('clstr-slot');
+    if (!slot) return;
+    var loaded = false;
+    function load() {
+        if (loaded) return;
+        loaded = true;
+        var s = document.createElement('script');
+        s.id = 'clstr_globe';
+        s.src = 'https://clustrmaps.com/globe.js?d=j4bX_U1ChVDtaTwglQ__PJvYC2tY2tlrw3RCrtNvJhY';
+        slot.appendChild(s);
+    }
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) { load(); io.disconnect(); } });
+        }, { rootMargin: '200px' });
+        io.observe(slot);
+    } else {
+        window.addEventListener('load', load);
+    }
+})();
+</script>

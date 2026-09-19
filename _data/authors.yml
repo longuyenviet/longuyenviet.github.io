@@ -1,2 +1,11 @@
+# Author display rules for publication lists.
+# The key must match the string used in each publication's `authors:` list.
+"L. V. Nguyen":
+  name: "L. V. Nguyen"
+  bold: true
+  url: "https://longuyenviet.github.io/"
 "Long V. Nguyen":
   bold: true
+"T. Q. Duong":
+  name: "T. Q. Duong"
+  url: "https://sites.google.com/site/trungqduong/home"

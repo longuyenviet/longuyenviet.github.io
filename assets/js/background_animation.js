@@ -12,8 +12,11 @@
         };
     }
 
+    // The theme system stores its state on <html data-theme>, not on a
+    // body class. Reading the wrong place meant the particle colour never
+    // followed the theme.
     function isNightMode() {
-        return document.body.classList.contains("dark-mode");
+        return document.documentElement.getAttribute("data-theme") === "dark";
     }
 
     function getNightModeColor() {
@@ -136,14 +139,17 @@
     //    document.addEventListener("DOMContentLoaded", attachToggle);
     //}
 
-    // Update animation color when dark mode is toggled
-    document.addEventListener("DOMContentLoaded", function () {
-        if (document.getElementById("dark-mode-toggle")) {
-            document.getElementById("dark-mode-toggle").addEventListener("click", function () {
-                setTimeout(updateBackgroundAnimation, 100);
-            });
-        }
-    });
+    // Recolour the particle field whenever the theme actually changes.
+    if (window.MutationObserver) {
+        new MutationObserver(function (records) {
+            for (var k = 0; k < records.length; k++) {
+                if (records[k].attributeName === "data-theme") {
+                    updateBackgroundAnimation();
+                    return;
+                }
+            }
+        }).observe(document.documentElement, { attributes: true });
+    }
 
 
 })();

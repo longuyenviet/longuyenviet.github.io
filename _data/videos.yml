@@ -1,0 +1,8 @@
+# Videos shown on the homepage.
+# `id` is the YouTube video id (the part after ?v= or youtu.be/).
+# Nothing is loaded from YouTube until the visitor clicks play, so adding
+# videos here costs one lightweight thumbnail each, not a full player.
+- id: bheHjqvkaaI
+  title: "Semantic communication research talk"
+- id: oDUa1Bw-hok
+  title: "Research presentation"

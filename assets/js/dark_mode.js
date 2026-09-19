@@ -3,14 +3,23 @@
 (function() {
     const THEME_KEY = 'theme-preference';
     
-    // Get theme preference from localStorage or default to 'light'
-    function getThemePreference() {
-        return localStorage.getItem(THEME_KEY) || 'light';
+    // Explicit choice wins; otherwise follow the operating system. Storage
+    // can throw in private browsing, so every access is guarded.
+    function storedTheme() {
+        try { return localStorage.getItem(THEME_KEY); } catch (e) { return null; }
     }
-    
-    // Set theme preference in localStorage
+
+    function systemTheme() {
+        return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ? 'dark' : 'light';
+    }
+
+    function getThemePreference() {
+        return storedTheme() || systemTheme();
+    }
+
     function setThemePreference(theme) {
-        localStorage.setItem(THEME_KEY, theme);
+        try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
     }
     
     // Apply theme to document
@@ -21,6 +30,12 @@
         const darkIcon = document.querySelector('.dark-mode-icon');
         const lightIcon = document.querySelector('.light-mode-icon');
         
+        var toggle = document.getElementById('darkModeToggle');
+        if (toggle) {
+            toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+            toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+
         if (darkIcon && lightIcon) {
             if (theme === 'dark') {
                 darkIcon.style.display = 'none';
@@ -65,7 +80,12 @@
     } else {
         initializeTheme();
     }
-    
-    // Also initialize on page navigation (for SPA-like behavior)
-    window.addEventListener('load', initializeTheme);
+
+    // Follow the OS if the visitor has never made an explicit choice.
+    if (window.matchMedia) {
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        var onChange = function () { if (!storedTheme()) applyTheme(systemTheme()); };
+        if (mq.addEventListener) { mq.addEventListener('change', onChange); }
+        else if (mq.addListener) { mq.addListener(onChange); }
+    }
 })();

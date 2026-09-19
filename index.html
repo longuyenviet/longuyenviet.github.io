@@ -1,16 +1,19 @@
 ---
 layout: default
-title : Home
 navbar_title: Home
+# No `title:` on purpose — jekyll-seo-tag then renders the strongest possible
+# homepage title: "<site.title> | <site.tagline>".
+description: >-
+  Homepage of Long V. Nguyen, PhD student at Memorial University of
+  Newfoundland researching semantic communications, generative AI and deep
+  reinforcement learning for 6G and vehicular networks. Publications, news and
+  contact details.
+permalink: /
 ---
-<!-- The main homepage that displays the profile information, recent news, and 
+<!-- The main homepage that displays the profile information, recent news, and
 selected publications. It uses yml files in _data to show personal information and academic background. -->
 
 {% include widgets/profile_card.html %}
-
-{% include widgets/debug_repo_name.html %}
-
-{% include widgets/debug_url.html %}
 
 {% if site.data.display.homepage.show_experience %}
     {% include widgets/experience_card.html %}

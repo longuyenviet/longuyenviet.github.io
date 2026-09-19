@@ -1,12 +1,28 @@
 ---
 layout: default
-title : Publications
+title: Publications
 navbar_title: Publications
+permalink: /publications/
+redirect_from:
+  - /publications.html
+description: >-
+  Peer-reviewed publications by Long V. Nguyen on semantic communications,
+  neural image compression, diffusion models and deep reinforcement learning
+  for wireless networks, published at IEEE INFOCOM, MASS and related venues.
+schema_publications: true
 body_attr: >-
   data-spy="scroll" data-target="#navbar-year" data-offset="100"
 ---
 
 {% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+
+<header class="page-header">
+    <h1>Publications</h1>
+    <p class="page-header-sub">
+        Peer-reviewed work on semantic communications, generative models and
+        learning-based wireless systems. Author list in <strong>bold</strong> marks my own name.
+    </p>
+</header>
 
 <div class="row">
     <div class="col-12 col-lg-10">
