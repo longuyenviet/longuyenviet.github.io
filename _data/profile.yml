@@ -15,7 +15,7 @@ github: longuyenviet
 # wechat_prompt: >-
 #   Please tell me your <strong>name</strong> and <strong>affiliation</strong> (current or past) when adding my WeChat. Thanks!
 linkedin: longgviet04
-# orcid: 0000-0000-0000-0000
+orcid: 0009-0005-7888-8649
 
 # Short, scannable research areas rendered as chips under the name.
 # These double as on-page keyword signals for the topics you want to rank for.
@@ -33,7 +33,6 @@ research_tags:
 extra_topics:
   - Wireless Communications
   - Joint Source-Channel Coding
-  - Quantum Computing
   - Vehicular Networks
   - Intelligent Transportation Systems
 
@@ -46,9 +45,9 @@ short_bio: >-
   </p>
 
   <p>
-    My main research interests are Generative AI, Deep Reinforcement Learning, and Quantum Computing in Intelligent Wireless Networks, 
-    especially <strong class="bio-highlight">Semantic Communications for Vehicular Networks</strong>, 
-    contributing to the developments of Intelligent Transportation Systems (ITS). With the efforts in these fields, 
+    My main research interests are Physical Layer Security, Generative AI, and Deep Reinforcement Learning in Intelligent Wireless Networks, 
+    especially <strong class="bio-highlight">Semantic Communications for UAV Networks Networks</strong>, 
+    contributing to the developments of Low-Altitude Economy (LAE). With the efforts in these fields, 
     our key objective is to <strong>seamlessly integrate the digital, physical and biological worlds to develop a "wireless without limit” connectivity</strong> 
     in the realm of next-generation communication technology. 
   </p>
@@ -61,7 +60,7 @@ short_bio: >-
     When I'm not working, I enjoy reading 📖, swimming 🏊‍♂️, and playing my favorite sports like soccer ⚽️ and badminton 🏸.
   </p>
 
-portrait_url: /assets/images/etc/luffy.png
+portrait_url: /assets/images/etc/longavt.png
 # portrait_caption: >-
 #   Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 

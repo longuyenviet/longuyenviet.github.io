@@ -1,0 +1,11 @@
+# Cloudflare Pages response headers.
+#
+# This repo is deployed twice: to GitHub Pages at longuyenviet.github.io (the
+# canonical site) and to a Cloudflare Pages project, which also exposes a free
+# longuyen-jekyll.pages.dev address. That address serves a complete copy of the
+# site, so it is a potential duplicate in search.
+#
+# The rule below is scoped to that hostname alone, so the canonical site and
+# the custom domain are unaffected. GitHub Pages ignores this file entirely.
+https://longuyen-jekyll.pages.dev/*
+  X-Robots-Tag: noindex, nofollow

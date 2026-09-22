@@ -66,6 +66,11 @@ plugins:
   # Pages builder, so templates must not depend on it for correctness.
   - jekyll-email-protect
 
+# Jekyll skips files beginning with an underscore, so _headers has to be
+# listed explicitly or it never reaches the built site.
+include:
+  - _headers
+
 exclude:
   - Gemfile
   - Gemfile.lock
