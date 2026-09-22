@@ -31,6 +31,7 @@ research_tags:
 
 # Extra topics for the Person schema only (not shown as chips).
 extra_topics:
+  - Physical Layer Security
   - Wireless Communications
   - Joint Source-Channel Coding
   - Vehicular Networks
@@ -46,7 +47,7 @@ short_bio: >-
 
   <p>
     My main research interests are Physical Layer Security, Generative AI, and Deep Reinforcement Learning in Intelligent Wireless Networks, 
-    especially <strong class="bio-highlight">Semantic Communications for UAV Networks Networks</strong>, 
+    especially <strong class="bio-highlight">Semantic Communications for UAV Networks</strong>, 
     contributing to the developments of Low-Altitude Economy (LAE). With the efforts in these fields, 
     our key objective is to <strong>seamlessly integrate the digital, physical and biological worlds to develop a "wireless without limit” connectivity</strong> 
     in the realm of next-generation communication technology. 
@@ -60,7 +61,7 @@ short_bio: >-
     When I'm not working, I enjoy reading 📖, swimming 🏊‍♂️, and playing my favorite sports like soccer ⚽️ and badminton 🏸.
   </p>
 
-portrait_url: /assets/images/etc/longavt.png
+portrait_url: /assets/images/etc/longavt.jpg
 # portrait_caption: >-
 #   Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 

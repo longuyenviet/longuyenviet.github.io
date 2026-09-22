@@ -11,3 +11,7 @@ _site/
 Gemfile.lock
 
 .DS_Store
+
+# Screenshots and scratch output dropped into the folder by Claude — not part
+# of the site.
+/Claude outputs/
