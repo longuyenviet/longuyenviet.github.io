@@ -2,7 +2,7 @@
 
 <section class="panel" aria-labelledby="panel-news">
     <h2 id="panel-news" class="panel-heading">
-        <span><i class="fas fa-rss" aria-hidden="true"></i>&nbsp; News</span>
+        <span>{% include icon.html name="rss" %} News</span>
     </h2>
     <div class="news-body">
         {%- for year in news_by_year %}

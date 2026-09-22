@@ -8,7 +8,7 @@
         </a>
 
         <button class="navbar-toggler site-nav-toggle" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menu">
-            <i class="fas fa-bars" aria-hidden="true"></i> <span>Menu</span>
+            {% include icon.html name="menu" px="17" %} <span>Menu</span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -21,9 +21,36 @@
                 </li>
                 {%- endfor %}
                 <li class="nav-item">
-                    <button class="nav-link btn btn-link dark-mode-toggle" id="darkModeToggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
-                        <i class="fas fa-moon dark-mode-icon" aria-hidden="true"></i>
-                        <i class="fas fa-sun light-mode-icon" style="display: none;" aria-hidden="true"></i>
+                    {%- comment -%}
+                      Theme toggle. Inline SVG rather than a Font Awesome glyph
+                      for two reasons: the icon font now loads asynchronously,
+                      so a glyph here would pop in after first paint, and an
+                      inline SVG can morph between the two states.
+
+                      One disc plus eight rays. Going dark, the rays retract
+                      into the disc while the mask circle slides across it to
+                      carve a crescent — one shape becoming the other, rather
+                      than two icons swapping places.
+                    {%- endcomment -%}
+                    <button class="theme-toggle" id="darkModeToggle" type="button"
+                            aria-pressed="false" aria-label="Switch to dark theme" title="Switch theme">
+                        <svg class="theme-toggle-icon" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" focusable="false">
+                            <mask id="theme-toggle-mask">
+                                <rect x="0" y="0" width="24" height="24" fill="#fff"/>
+                                <circle class="theme-toggle-cutout" cx="26" cy="4" r="6.5" fill="#000"/>
+                            </mask>
+                            <circle class="theme-toggle-disc" cx="12" cy="12" r="6" mask="url(#theme-toggle-mask)"/>
+                            <g class="theme-toggle-rays" stroke-linecap="round">
+                                <line x1="12" y1="1.6" x2="12" y2="3.6"/>
+                                <line x1="12" y1="20.4" x2="12" y2="22.4"/>
+                                <line x1="1.6" y1="12" x2="3.6" y2="12"/>
+                                <line x1="20.4" y1="12" x2="22.4" y2="12"/>
+                                <line x1="4.6" y1="4.6" x2="6.1" y2="6.1"/>
+                                <line x1="17.9" y1="17.9" x2="19.4" y2="19.4"/>
+                                <line x1="4.6" y1="19.4" x2="6.1" y2="17.9"/>
+                                <line x1="17.9" y1="6.1" x2="19.4" y2="4.6"/>
+                            </g>
+                        </svg>
                     </button>
                 </li>
             </ul>

@@ -238,17 +238,92 @@ hr { border-top-color: var(--c-border); }
     padding: 0.35rem 0.7rem;
 }
 
-.dark-mode-toggle {
-    background: none !important;
-    border: none !important;
-    color: var(--c-text-muted) !important;
-    font-size: 1.05rem;
-    padding: 0.4rem 0.75rem !important;
+/* ---- Theme toggle -------------------------------------------------------
+   A single sun/moon shape that morphs rather than two icons swapping. The
+   sun's rays retract into the disc while a masked circle slides across it to
+   bite out a crescent. All of it is CSS on the inline SVG in navbar.html, so
+   nothing waits on the icon font.
+   ------------------------------------------------------------------------ */
+.theme-toggle {
+    --toggle-size: 38px;
+    width: var(--toggle-size);
+    height: var(--toggle-size);
+    margin-left: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--c-text-muted);
     cursor: pointer;
-    transition: color 0.15s var(--ease), transform 0.15s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s var(--ease), background-color 0.2s var(--ease),
+                border-color 0.2s var(--ease);
 }
-.dark-mode-toggle:hover { color: var(--c-accent) !important; transform: rotate(-12deg); }
-.dark-mode-toggle:focus { box-shadow: none !important; }
+.theme-toggle:hover {
+    color: var(--c-accent);
+    background: var(--c-accent-soft);
+    border-color: color-mix(in srgb, var(--c-accent) 22%, transparent);
+}
+@supports not (border-color: color-mix(in srgb, red 50%, transparent)) {
+    .theme-toggle:hover { border-color: var(--c-border); }
+}
+.theme-toggle:active .theme-toggle-icon { transform: scale(0.88); }
+
+.theme-toggle-icon {
+    display: block;
+    overflow: visible;
+    transition: transform 0.45s var(--ease);
+}
+.theme-toggle-disc {
+    fill: currentColor;
+    transform-origin: center;
+    transition: r 0.45s var(--ease), transform 0.45s var(--ease);
+}
+.theme-toggle-cutout {
+    /* Parked off-canvas in light mode; slides in to carve the crescent. */
+    transition: transform 0.45s var(--ease);
+    transform: translate(0, 0);
+}
+.theme-toggle-rays {
+    stroke: currentColor;
+    stroke-width: 1.7;
+    transform-origin: center;
+    transition: transform 0.45s var(--ease), opacity 0.3s var(--ease);
+}
+
+/* Dark: the rays fold away and the cutout slides across the disc. The disc
+   itself is left alone — scaling it fought with the mask and thinned the
+   crescent to a sliver. */
+[data-theme="dark"] .theme-toggle-cutout { transform: translate(-8px, 3.5px); }
+[data-theme="dark"] .theme-toggle-rays {
+    transform: rotate(45deg) scale(0.4);
+    opacity: 0;
+}
+[data-theme="dark"] .theme-toggle-icon { transform: rotate(-12deg); }
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle-icon,
+    .theme-toggle-disc,
+    .theme-toggle-cutout,
+    .theme-toggle-rays { transition: none; }
+}
+
+/* ---- Theme change: circular wipe ----------------------------------------
+   dark_mode.js drives a View Transition and animates a expanding circle
+   clipped to the new snapshot, so the new theme sweeps out from the button.
+   Browsers without the API just switch instantly; nothing here is required
+   for the toggle to work.
+   ------------------------------------------------------------------------ */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
 
 .blinking-slash {
     color: var(--c-accent-2);
@@ -291,8 +366,11 @@ hr { border-top-color: var(--c-border); }
     border-bottom: 1px solid var(--c-border);
     background: var(--c-surface-2);
 }
-.panel-heading i { color: var(--c-accent); display: inline-block; width: 1.05em; text-align: center; }
-.profile-link i, .pub-link i, .btn-cv i { display: inline-block; width: 1.05em; text-align: center; }
+/* Inline SVG icons sit on the text baseline and never reflow, because they
+   are part of the document rather than a font that arrives later. */
+.icon { display: inline-block; vertical-align: -0.18em; flex: none; }
+.panel-heading .icon { color: var(--c-accent); margin-right: 0.15rem; }
+.panel-heading-link .icon, .panel-footer-link .icon { vertical-align: -0.2em; }
 .panel-heading-link {
     font-size: 0.82rem;
     font-weight: 500;
@@ -413,24 +491,50 @@ hr { border-top-color: var(--c-border); }
     gap: 0.45rem 0.6rem;
 }
 .profile-link {
+    --brand: var(--c-accent);
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.45rem;
     font-size: 0.88rem;
     font-weight: 500;
-    padding: 0.3rem 0.8rem;
+    padding: 0.34rem 0.85rem;
     border-radius: var(--radius-pill);
     border: 1px solid var(--c-border);
     background: var(--c-surface-2);
     color: var(--c-text-muted) !important;
     white-space: nowrap;
+    transition: color 0.16s var(--ease), border-color 0.16s var(--ease),
+                background-color 0.16s var(--ease), transform 0.16s var(--ease);
 }
+/* The mark carries its brand colour at rest so the row reads as a set of
+   recognisable services; the label stays neutral so the row stays calm. */
+.profile-link .icon { color: var(--brand); transition: transform 0.16s var(--ease); }
 .profile-link:hover {
     text-decoration: none;
-    color: var(--c-accent) !important;
-    border-color: var(--c-accent);
-    background: var(--c-accent-soft);
+    color: var(--brand) !important;
+    border-color: var(--brand);
+    background: color-mix(in srgb, var(--brand) 9%, transparent);
+    transform: translateY(-1px);
 }
+.profile-link:hover .icon { transform: scale(1.12); }
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+    .profile-link:hover { background: var(--c-accent-soft); }
+}
+
+/* Brand colours, chosen to stay legible on both themes. GitHub's true black
+   disappears in dark mode, so it lightens; the rest are the official values. */
+.brand-github   { --brand: #24292f; }
+.brand-linkedin { --brand: #0a66c2; }
+.brand-orcid    { --brand: #96bf2b; }
+.brand-scholar  { --brand: #2f6fd0; }
+.brand-x        { --brand: #14171a; }
+[data-theme="dark"] .brand-github   { --brand: #e6edf3; }
+[data-theme="dark"] .brand-linkedin { --brand: #61a5f2; }
+[data-theme="dark"] .brand-orcid    { --brand: #b6dc4a; }
+[data-theme="dark"] .brand-scholar  { --brand: #7aa9f0; }
+[data-theme="dark"] .brand-x        { --brand: #e6edf3; }
+.brand-youtube-icon { color: #ff0033; }
+[data-theme="dark"] .brand-youtube-icon { color: #ff4d67; }
 .email-text { font-family: var(--font-mono); font-size: 0.86em; }
 
 /* ---------------------------------------------------------------------------

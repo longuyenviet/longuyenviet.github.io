@@ -1,0 +1,79 @@
+{%- comment -%}
+  Inline SVG icons.
+
+  Usage:  {% include icon.html name="github" %}
+          {% include icon.html name="star" class="panel-icon" px="18" %}
+
+  NOTE: the size parameter is called `px`, not `size`. On a Liquid hash,
+  `include.size` resolves to the NUMBER OF PARAMETERS passed, not to a
+  parameter named "size" — which silently renders every icon at 1x1.
+
+  Why inline rather than an icon font: the whole site used 17 icons, which
+  cost two stylesheets (Font Awesome, Academicons) plus several hundred KB of
+  webfonts, all on third-party origins. Those stylesheets loaded
+  asynchronously, so every icon popped in after first paint. Inline SVG is
+  part of the HTML, renders immediately, costs nothing extra, and lets the
+  brand marks carry their own colours.
+
+  UI icons are 24x24 stroke icons (Lucide-style geometry). Brand marks are
+  24x24 filled paths from Simple Icons (CC0).
+{%- endcomment -%}
+{%- assign n = include.name -%}
+{%- assign sz = include.px | default: 18 -%}
+{%- capture cls %}icon icon-{{ n }}{% if include.class %} {{ include.class }}{% endif %}{% endcapture -%}
+{%- case n -%}
+
+{%- when 'github' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+
+{%- when 'linkedin' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+
+{%- when 'orcid' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.516.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/></svg>
+
+{%- when 'scholar' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5.242 13.769 0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5s-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+
+{%- when 'youtube' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+
+{%- when 'x-twitter' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932zM17.61 20.644h2.039L6.486 3.24H4.298z"/></svg>
+
+{%- when 'wechat' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.33.33 0 0 0 .167-.054l1.903-1.114a.86.86 0 0 1 .717-.098 10.2 10.2 0 0 0 2.837.403c.276 0 .55-.14.82-.037a5.6 5.6 0 0 1-.213-1.531c0-3.5 3.405-6.343 7.604-6.343.276 0 .55.017.82.043-.75-3.495-4.328-6.113-8.63-6.113zM5.785 5.995a1.04 1.04 0 1 1 0 2.08 1.04 1.04 0 0 1 0-2.08zm5.813 0a1.04 1.04 0 1 1 0 2.08 1.04 1.04 0 0 1 0-2.08zM24 14.514c0-3.404-3.405-6.172-7.604-6.172s-7.604 2.768-7.604 6.172 3.405 6.172 7.604 6.172c.868 0 1.706-.12 2.487-.34a.72.72 0 0 1 .598.082l1.586.928a.28.28 0 0 0 .14.045c.134 0 .243-.11.243-.246 0-.06-.024-.12-.04-.177l-.325-1.233a.49.49 0 0 1 .177-.554C22.826 18.017 24 16.358 24 14.514zm-10.07-1.734a.866.866 0 1 1 0 1.733.866.866 0 0 1 0-1.733zm4.844 0a.866.866 0 1 1 0 1.733.866.866 0 0 1 0-1.733z"/></svg>
+
+{%- when 'mail' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+
+{%- when 'file' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h6M16 13H8M16 17H8M10 9H8"/></svg>
+
+{%- when 'star' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="m12 2.6 2.9 5.88 6.49.95-4.7 4.58 1.11 6.46L12 17.42 6.2 20.47l1.11-6.46-4.7-4.58 6.49-.95z"/></svg>
+
+{%- when 'rss' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
+
+{%- when 'briefcase' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+
+{%- when 'menu' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+
+{%- when 'play' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11.14-6.86a1 1 0 0 0 0-1.72L9.5 4.28A1 1 0 0 0 8 5.14z"/></svg>
+
+{%- when 'chevron-left' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg>
+
+{%- when 'chevron-right' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg>
+
+{%- when 'arrow-right' -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+
+{%- else -%}
+<svg class="{{ cls }}" width="{{ sz }}" height="{{ sz }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/></svg>
+{%- endcase -%}

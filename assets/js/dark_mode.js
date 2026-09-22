@@ -1,10 +1,17 @@
 /* filepath: assets/js/dark_mode.js */
-// Dark Mode Toggle Functionality
-(function() {
-    const THEME_KEY = 'theme-preference';
-    
-    // Explicit choice wins; otherwise follow the operating system. Storage
-    // can throw in private browsing, so every access is guarded.
+/* Theme switching.
+ *
+ * An explicit choice is remembered; otherwise the operating system decides.
+ * When the browser supports the View Transitions API, the new theme is
+ * revealed with a circle expanding from the toggle button. Everywhere else
+ * the theme simply changes — the effect is decoration, never a dependency.
+ */
+(function () {
+    'use strict';
+
+    var THEME_KEY = 'theme-preference';
+
+    // Storage throws in some privacy modes, so every access is guarded.
     function storedTheme() {
         try { return localStorage.getItem(THEME_KEY); } catch (e) { return null; }
     }
@@ -21,67 +28,83 @@
     function setThemePreference(theme) {
         try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
     }
-    
-    // Apply theme to document
+
+    function prefersReducedMotion() {
+        return window.matchMedia
+            && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
-        
-        // Update toggle button icons
-        const darkIcon = document.querySelector('.dark-mode-icon');
-        const lightIcon = document.querySelector('.light-mode-icon');
-        
+
         var toggle = document.getElementById('darkModeToggle');
         if (toggle) {
-            toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-            toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+            var goingDark = theme === 'dark';
+            toggle.setAttribute('aria-pressed', goingDark ? 'true' : 'false');
+            toggle.setAttribute('aria-label',
+                goingDark ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+    }
+
+    /* Expand a circle from the centre of the toggle, clipped to the new
+     * snapshot, so the incoming theme wipes over the outgoing one. */
+    function revealFrom(button, theme) {
+        var supported = typeof document.startViewTransition === 'function';
+        if (!supported || prefersReducedMotion() || !button) {
+            applyTheme(theme);
+            return;
         }
 
-        if (darkIcon && lightIcon) {
-            if (theme === 'dark') {
-                darkIcon.style.display = 'none';
-                lightIcon.style.display = 'inline';
-            } else {
-                darkIcon.style.display = 'inline';
-                lightIcon.style.display = 'none';
-            }
-        }
+        var rect = button.getBoundingClientRect();
+        var x = rect.left + rect.width / 2;
+        var y = rect.top + rect.height / 2;
+        // Distance to the furthest corner, so the circle always covers the page.
+        var radius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+        );
+
+        var transition = document.startViewTransition(function () {
+            applyTheme(theme);
+        });
+
+        transition.ready.then(function () {
+            document.documentElement.animate(
+                {
+                    clipPath: [
+                        'circle(0px at ' + x + 'px ' + y + 'px)',
+                        'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)'
+                    ]
+                },
+                {
+                    duration: 520,
+                    easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                    pseudoElement: '::view-transition-new(root)'
+                }
+            );
+        }).catch(function () { /* a skipped transition is fine */ });
     }
-    
-    // Toggle between light and dark themes
-    function toggleTheme() {
-        const currentTheme = getThemePreference();
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        setThemePreference(newTheme);
-        applyTheme(newTheme);
-        
-        // Add smooth transition effect
-        document.documentElement.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-        setTimeout(() => {
-            document.documentElement.style.transition = '';
-        }, 300);
-    }
-    
-    // Initialize theme on page load
+
     function initializeTheme() {
-        const savedTheme = getThemePreference();
-        applyTheme(savedTheme);
-        
-        // Add event listener to toggle button
-        const toggleButton = document.getElementById('darkModeToggle');
-        if (toggleButton) {
-            toggleButton.addEventListener('click', toggleTheme);
+        applyTheme(getThemePreference());
+
+        var toggle = document.getElementById('darkModeToggle');
+        if (toggle) {
+            toggle.addEventListener('click', function () {
+                var next = getThemePreference() === 'dark' ? 'light' : 'dark';
+                setThemePreference(next);
+                revealFrom(toggle, next);
+            });
         }
     }
-    
-    // Initialize when DOM is ready
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializeTheme);
     } else {
         initializeTheme();
     }
 
-    // Follow the OS if the visitor has never made an explicit choice.
+    // Follow the OS while the visitor has never made an explicit choice.
     if (window.matchMedia) {
         var mq = window.matchMedia('(prefers-color-scheme: dark)');
         var onChange = function () { if (!storedTheme()) applyTheme(systemTheme()); };

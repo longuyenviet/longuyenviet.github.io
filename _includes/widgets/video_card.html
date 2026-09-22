@@ -11,12 +11,12 @@
 {%- if videos and videos.size > 0 %}
 <section class="panel" aria-labelledby="panel-videos">
     <h2 id="panel-videos" class="panel-heading">
-        <span><i class="fab fa-youtube" aria-hidden="true"></i>&nbsp; Videos</span>
+        <span>{% include icon.html name="youtube" class="brand-youtube-icon" %} Videos</span>
     </h2>
 
     <div class="video-panel" data-video-panel>
         <button class="video-nav video-nav-prev" type="button" data-video-prev aria-label="Previous video">
-            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            {% include icon.html name="chevron-left" %}
         </button>
 
         <div class="video-viewport">
@@ -32,7 +32,7 @@
                              alt="{{ v.title | escape }}"
                              loading="lazy" decoding="async"
                              width="480" height="360">
-                        <span class="video-play" aria-hidden="true"><i class="fas fa-play"></i></span>
+                        <span class="video-play" aria-hidden="true">{% include icon.html name="play" px="22" %}</span>
                         <span class="video-caption">{{ v.title }}</span>
                     </button>
                 </div>
@@ -41,7 +41,7 @@
         </div>
 
         <button class="video-nav video-nav-next" type="button" data-video-next aria-label="Next video">
-            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            {% include icon.html name="chevron-right" %}
         </button>
     </div>
 

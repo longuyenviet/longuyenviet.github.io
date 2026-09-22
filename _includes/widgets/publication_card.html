@@ -1,8 +1,8 @@
 {%- assign publications = include.publications -%}
 <section class="panel" aria-labelledby="panel-publications">
     <h2 id="panel-publications" class="panel-heading">
-        <span>{% if include.title %}{{ include.title }}{% else %}<i class="fas fa-star" aria-hidden="true"></i>&nbsp; Selected Recent Publications{% endif %}</span>
-        <a class="panel-heading-link" href="{{ '/publications/' | relative_url }}">View all <i class="fas fa-angle-double-right" aria-hidden="true"></i></a>
+        <span>{% include icon.html name="star" %} {{ include.title | default: "Selected Recent Publications" }}</span>
+        <a class="panel-heading-link" href="{{ '/publications/' | relative_url }}">View all {% include icon.html name="arrow-right" px="15" %}</a>
     </h2>
 
     {%- for item in publications limit:include.limit %}
@@ -10,6 +10,6 @@
     {%- endfor %}
 
     <p class="panel-footer-link">
-        <a href="{{ '/publications/' | relative_url }}">All publications <i class="fas fa-angle-double-right" aria-hidden="true"></i></a>
+        <a href="{{ '/publications/' | relative_url }}">All publications {% include icon.html name="arrow-right" px="15" %}</a>
     </p>
 </section>

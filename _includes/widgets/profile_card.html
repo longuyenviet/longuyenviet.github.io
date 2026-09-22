@@ -54,7 +54,7 @@
         {%- if p.cv_link %}
         <p class="mb-0">
             <a class="btn-cv" target="_blank" rel="noopener noreferrer" href="{{ p.cv_link | relative_url }}">
-                <i class="fas fa-file-alt" aria-hidden="true"></i> Curriculum Vitae
+                {% include icon.html name="file" %} Curriculum Vitae
             </a>
         </p>
         {%- endif %}
@@ -74,7 +74,7 @@
                data-domain="{{ mail_parts[1] }}"
                href="#"
                rel="nofollow">
-                <i class="fas fa-at" aria-hidden="true"></i>
+                {% include icon.html name="mail" %}
                 <span class="email-text">{{ mail_parts[0] }}&#8203;(at)&#8203;{{ mail_parts[1] }}</span>
             </a>
 
@@ -84,38 +84,38 @@
             {%- else -%}
             {%- assign gscholar_url = 'https://scholar.google.com/citations?user=' | append: p.gscholar -%}
             {%- endif %}
-            <a class="profile-link" target="_blank" rel="noopener noreferrer me" href="{{ gscholar_url }}">
-                <i class="ai ai-google-scholar" aria-hidden="true"></i> Google Scholar
+            <a class="profile-link brand-scholar" target="_blank" rel="noopener noreferrer me" href="{{ gscholar_url }}">
+                {% include icon.html name="scholar" %} Google Scholar
             </a>
             {%- endif %}
 
             {%- if p.github %}
-            <a class="profile-link" target="_blank" rel="noopener noreferrer me" href="https://github.com/{{ p.github }}">
-                <i class="fab fa-github" aria-hidden="true"></i> GitHub
+            <a class="profile-link brand-github" target="_blank" rel="noopener noreferrer me" href="https://github.com/{{ p.github }}">
+                {% include icon.html name="github" %} GitHub
             </a>
             {%- endif %}
 
             {%- if p.linkedin %}
-            <a class="profile-link" target="_blank" rel="noopener noreferrer me" href="https://www.linkedin.com/in/{{ p.linkedin }}">
-                <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+            <a class="profile-link brand-linkedin" target="_blank" rel="noopener noreferrer me" href="https://www.linkedin.com/in/{{ p.linkedin }}">
+                {% include icon.html name="linkedin" %} LinkedIn
             </a>
             {%- endif %}
 
             {%- if p.orcid %}
-            <a class="profile-link" target="_blank" rel="noopener noreferrer me" href="https://orcid.org/{{ p.orcid }}">
-                <i class="ai ai-orcid" aria-hidden="true"></i> ORCID
+            <a class="profile-link brand-orcid" target="_blank" rel="noopener noreferrer me" href="https://orcid.org/{{ p.orcid }}">
+                {% include icon.html name="orcid" %} ORCID
             </a>
             {%- endif %}
 
             {%- if p.twitter %}
-            <a class="profile-link" target="_blank" rel="noopener noreferrer me" href="https://twitter.com/{{ p.twitter }}">
-                <i class="fab fa-x-twitter" aria-hidden="true"></i> X
+            <a class="profile-link brand-x" target="_blank" rel="noopener noreferrer me" href="https://twitter.com/{{ p.twitter }}">
+                {% include icon.html name="x-twitter" %} X
             </a>
             {%- endif %}
 
             {%- if p.wechat_qrcode %}
             <a class="profile-link" href="#" data-toggle="modal" data-target="#modal-wechat">
-                <i class="fab fa-weixin" aria-hidden="true"></i> WeChat
+                {% include icon.html name="wechat" %} WeChat
             </a>
             {%- endif %}
         </nav>
