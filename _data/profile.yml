@@ -19,12 +19,23 @@ linkedin: longgviet04
 
 # Short, scannable research areas rendered as chips under the name.
 # These double as on-page keyword signals for the topics you want to rank for.
+# These chips are rendered under your name AND fed into the Person schema's
+# knowsAbout list, so they are real keyword signals. Spell acronyms out —
+# nobody searches for "LAEN", but "low-altitude economy" is a live term.
 research_tags:
   - Semantic Communications
   - Generative AI
   - Deep Reinforcement Learning
-  - LAEN
+  - Low-Altitude Economy (LAE)
   - UAV Networks / 6G
+
+# Extra topics for the Person schema only (not shown as chips).
+extra_topics:
+  - Wireless Communications
+  - Joint Source-Channel Coding
+  - Quantum Computing
+  - Vehicular Networks
+  - Intelligent Transportation Systems
 
 short_bio_text_justify: false
 short_bio: >-
@@ -36,7 +47,7 @@ short_bio: >-
 
   <p>
     My main research interests are Generative AI, Deep Reinforcement Learning, and Quantum Computing in Intelligent Wireless Networks, 
-    especially <strong style="color: DodgerBlue;">Semantic Communications for Vehicular Networks</strong>, 
+    especially <strong class="bio-highlight">Semantic Communications for Vehicular Networks</strong>, 
     contributing to the developments of Intelligent Transportation Systems (ITS). With the efforts in these fields, 
     our key objective is to <strong>seamlessly integrate the digital, physical and biological worlds to develop a "wireless without limit” connectivity</strong> 
     in the realm of next-generation communication technology. 

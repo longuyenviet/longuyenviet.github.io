@@ -58,11 +58,31 @@ def one(pattern, html, flags=re.S | re.I):
     return m.group(1).strip() if m else None
 
 
+def strip_comments(html):
+    """Remove HTML comments.
+
+    Counting headings in raw HTML is wrong: markup that has been commented out
+    still matches. That blind spot once let two pages ship with no h1 at all
+    while this script happily reported "1 h1 element".
+    """
+    return re.sub(r"<!--.*?-->", "", html, flags=re.S)
+
+
+SITE_DESC_HEAD = None
+
 print(f"\nSEO check against {BASE}"
       + ("   (local preview: canonicals compared against " + PROD + ")" if LOCAL else "")
       + "\n" + "=" * 72)
 
 titles, descriptions, pages_html = {}, {}, {}
+
+# The site-wide description, used to detect pages that fall back to it.
+_st, _sh, _, _ = get("/")
+if _st == 200:
+    _m = re.search(r'<meta[^>]+property="og:site_name"', _sh)
+    _d = re.search(r'"description":\s*"([^"]{40,})"', _sh)
+    if _d:
+        SITE_DESC_HEAD = _d.group(1)[:60]
 
 # ---------------------------------------------------------------- per page --
 for path in PAGES:
@@ -91,6 +111,14 @@ for path in PAGES:
         record(FAIL, "no canonical tag")
 
     desc = one(r'<meta[^>]+name="description"[^>]+content="([^"]*)"', html)
+    # A page whose front-matter description is missing or blank silently
+    # inherits site.description. That is not an error jekyll reports, so
+    # check for it here.
+    if desc and SITE_DESC_HEAD and desc[:60] == SITE_DESC_HEAD and path != "/":
+        record(FAIL, "description falls back to the site-wide description",
+               "add a `description:` to this page's front matter")
+    if desc and ("&lt;" in desc or "<a " in desc or "&gt;" in desc):
+        record(FAIL, "meta description contains HTML markup", desc[:110])
     if desc and 70 <= len(desc) <= 300:
         record(PASS, f"meta description ({len(desc)} chars)", desc[:100] + "…")
     elif desc:
@@ -99,8 +127,16 @@ for path in PAGES:
         record(FAIL, "no meta description")
     descriptions[path] = desc
 
-    n_h1 = len(re.findall(r"<h1[ >]", html, re.I))
-    record(PASS if n_h1 == 1 else FAIL, f"{n_h1} h1 element(s) (must be 1)")
+    visible = strip_comments(html)
+    n_h1 = len(re.findall(r"<h1[ >]", visible, re.I))
+    record(PASS if n_h1 == 1 else FAIL,
+           f"{n_h1} rendered h1 element(s) (must be 1)",
+           "commented-out markup does not count" if n_h1 == 0 else "")
+
+    empty_h = re.findall(r"<h([1-6])[^>]*>\s*</h\1>", visible, re.I)
+    record(PASS if not empty_h else FAIL,
+           "no empty headings" if not empty_h
+           else f"{len(empty_h)} empty heading(s) — h{', h'.join(empty_h)}")
 
     og_img = one(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', html)
     if og_img:
@@ -150,6 +186,30 @@ for path in PAGES:
     if path == "/publications/":
         found = any("ScholarlyArticle" in b for b in blocks)
         record(PASS if found else FAIL, "ScholarlyArticle markup on publications")
+
+# ----------------------------------------------------- outbound link check --
+print("\n--- outbound links")
+seen, broken, unreachable = set(), [], []
+for path, html in pages_html.items():
+    for url in set(re.findall(r'href="(https?://[^"]+)"', strip_comments(html))):
+        if url in seen:
+            continue
+        seen.add(url)
+        st, _, _, _ = get(url)
+        # Only a definite HTTP error counts. 403/405 are common anti-bot
+        # responses, and st is None for TLS or DNS problems on this machine
+        # rather than anything wrong with the target.
+        if st in (404, 410, 500, 502, 503):
+            broken.append((path, url, st))
+        elif st is None:
+            unreachable.append((path, url))
+record(PASS if not broken else FAIL,
+       f"checked {len(seen)} outbound link(s)" if not broken else f"{len(broken)} broken outbound link(s)",
+       "\n         ".join(f"{u} -> {st} (on {p})" for p, u, st in broken))
+if unreachable:
+    record(WARN, f"{len(unreachable)} link(s) could not be reached from this machine",
+           "usually a local TLS/DNS issue, not a broken link:\n         "
+           + "\n         ".join(u for _, u in unreachable))
 
 # --------------------------------------------------------------- sitewide --
 print("\n--- sitewide")

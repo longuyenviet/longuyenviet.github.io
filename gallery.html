@@ -10,14 +10,13 @@ description: >-
 container_class: container-xl
 ---
 
-<!-- <header class="page-header">
+<header class="page-header page-header-compact">
     <h1>Gallery</h1>
-    <p class="page-header-sub">Photographs, visual notes and things worth keeping.</p>
-</header> -->
+</header>
 
 {% assign cards_by_group = site.gallery | sort: "date" | reverse | where: "show", true | group_by_exp: "item", "item.group" %}
 {% for group in cards_by_group %}
-<h2 class="gallery-group-heading">{{ group.name }}</h2>
+{% if group.name and group.name != "" %}<h2 class="gallery-group-heading">{{ group.name }}</h2>{% endif %}
 <div class="row grid mb-4">
     <!-- Responsive grid system with masonry layout -->
     <div class="grid-sizer col-1"></div>
