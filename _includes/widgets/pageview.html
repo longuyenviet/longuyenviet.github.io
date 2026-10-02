@@ -1,33 +1,15 @@
 {%- comment -%}
   Clustrmaps visitor globe.
 
-  Loaded only once the widget scrolls into view, and over HTTPS rather than a
-  protocol-relative URL. It is a third-party script in the critical path
-  otherwise, and it contributes nothing to indexable content.
+  This must stay a plain <script> tag written directly in the page, exactly as
+  Clustrmaps supplies it. An earlier version injected the script from
+  JavaScript to lazy-load it; the globe then never rendered, because the
+  Clustrmaps script has to run while the page is being parsed to place itself.
+  It sits at the very bottom of the page, so it does not delay the content
+  above it.
 {%- endcomment -%}
-<div class="visitor-globe" aria-hidden="true">
-    <div class="visitor-globe-slot" id="clstr-slot"></div>
+<div class="visitor-globe">
+    <div class="visitor-globe-slot">
+        <script type="text/javascript" id="clstr_globe" src="https://clustrmaps.com/globe.js?d=j4bX_U1ChVDtaTwglQ__PJvYC2tY2tlrw3RCrtNvJhY"></script>
+    </div>
 </div>
-<script>
-(function () {
-    var slot = document.getElementById('clstr-slot');
-    if (!slot) return;
-    var loaded = false;
-    function load() {
-        if (loaded) return;
-        loaded = true;
-        var s = document.createElement('script');
-        s.id = 'clstr_globe';
-        s.src = 'https://clustrmaps.com/globe.js?d=j4bX_U1ChVDtaTwglQ__PJvYC2tY2tlrw3RCrtNvJhY';
-        slot.appendChild(s);
-    }
-    if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) { if (e.isIntersecting) { load(); io.disconnect(); } });
-        }, { rootMargin: '200px' });
-        io.observe(slot);
-    } else {
-        window.addEventListener('load', load);
-    }
-})();
-</script>
