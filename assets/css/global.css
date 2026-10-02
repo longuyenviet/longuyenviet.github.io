@@ -170,9 +170,13 @@ hr { border-top-color: var(--c-border); }
 .page-header-sub {
     color: var(--c-text-muted);
     font-size: var(--step-0);
-    max-width: 62ch;
+    /* Wide enough for a one-line intro on desktop; 62ch forced the
+       publications sentence to break in the middle of its link. */
+    max-width: 90ch;
     margin-bottom: 0;
 }
+/* A link in the intro wraps as a unit, never between its own words. */
+.page-header-sub a { white-space: nowrap; }
 
 .section-heading {
     font-size: var(--step-2);
