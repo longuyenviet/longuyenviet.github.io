@@ -771,7 +771,9 @@ hr { border-top-color: var(--c-border); }
 
 /* Visitor globe */
 .visitor-globe { display: flex; justify-content: center; margin: 1.75rem 0 0.5rem; }
-.visitor-globe-slot { width: 250px; height: 250px; overflow: hidden; }
+/* The MapMyVisitors globe is 250px wide and a little taller than it is wide
+   once its visitor label is included, so the height must not be fixed. */
+.visitor-globe-slot { width: 250px; min-height: 250px; }
 
 /* Gallery */
 .gallery-group-heading {

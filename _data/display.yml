@@ -24,4 +24,4 @@ footer_text: >-
 #   globe_src: "https://mapmyvisitors.com/globe.js?d=YOUR_TOKEN"
 # Leave it empty to hide the widget. (ClustrMaps, used before, went offline.)
 visitor_map:
-  globe_src: ""
+  globe_src: "https://mapmyvisitors.com/globe.js?d=YZbJwvw68lKTw8HLGwKw3OIMFs5fddsuhU3uyXckeCA"
