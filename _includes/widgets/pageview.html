@@ -1,15 +1,20 @@
 {%- comment -%}
-  Clustrmaps visitor globe.
+  Visitor globe (MapMyVisitors).
+
+  Rendered only when site.data.display.visitor_map.globe_src is set, so an
+  unconfigured or retired provider leaves no empty box on the page.
 
   This must stay a plain <script> tag written directly in the page, exactly as
-  Clustrmaps supplies it. An earlier version injected the script from
-  JavaScript to lazy-load it; the globe then never rendered, because the
-  Clustrmaps script has to run while the page is being parsed to place itself.
-  It sits at the very bottom of the page, so it does not delay the content
-  above it.
+  the provider supplies it; the script places itself while the page is parsed.
+  The id is taken from the address: MapMyVisitors expects "mmvst_globe" for
+  globe.js and "mapmyvisitors" for map.js.
 {%- endcomment -%}
+{%- assign globe_src = site.data.display.visitor_map.globe_src -%}
+{%- if globe_src and globe_src != "" %}
+{%- if globe_src contains "globe.js" %}{% assign globe_id = "mmvst_globe" %}{% else %}{% assign globe_id = "mapmyvisitors" %}{% endif %}
 <div class="visitor-globe">
     <div class="visitor-globe-slot">
-        <script type="text/javascript" id="clstr_globe" src="https://clustrmaps.com/globe.js?d=j4bX_U1ChVDtaTwglQ__PJvYC2tY2tlrw3RCrtNvJhY"></script>
+        <script type="text/javascript" id="{{ globe_id }}" src="{{ globe_src }}"></script>
     </div>
 </div>
+{%- endif %}

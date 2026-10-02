@@ -18,3 +18,10 @@ dark_mode:
 footer_text: >-
 # Layout inspired by <a href="https://luost.me/" target="_blank" rel="noopener noreferrer">Shitong Luo</a>.
 
+# Visitor globe at the bottom of the homepage (MapMyVisitors).
+# Paste the full script address from your MapMyVisitors embed code between the
+# quotes, for example:
+#   globe_src: "https://mapmyvisitors.com/globe.js?d=YOUR_TOKEN"
+# Leave it empty to hide the widget. (ClustrMaps, used before, went offline.)
+visitor_map:
+  globe_src: ""
