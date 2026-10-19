@@ -554,14 +554,18 @@ hr { border-top-color: var(--c-border); }
 .pub-item:hover { background: var(--c-surface-2); }
 .pub-item-bordered { border-bottom: 1px solid var(--c-border); }
 
+/* Covers are paper figures with very different shapes (square to 2.4:1).
+   `contain` shows the whole figure inside the 3:2 frame instead of cropping
+   it, and the white fill matches the figures' own white backgrounds. */
 .pub-thumb-img {
     width: 100%;
     height: auto;
     aspect-ratio: 3 / 2;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 4px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--c-border);
-    background: var(--c-surface-2);
+    background: #fff;
 }
 
 .pub-title {
@@ -775,7 +779,7 @@ hr { border-top-color: var(--c-border); }
    once its visitor label is included, so the height must not be fixed. */
 /* The MapMyVisitors globe sizes itself to this box's width, so the width
    here IS the globe size. min() lets it shrink to fit narrow phones. */
-.visitor-globe-slot { width: min(360px, 100%); min-height: 250px; }
+.visitor-globe-slot { width: min(260px, 100%); min-height: 250px; }
 
 /* Gallery */
 .gallery-group-heading {
