@@ -106,10 +106,19 @@
             "author": [{% for a in item.authors %}{%- assign clean = a | replace: '*', '' | replace: '#', '' -%}
               { "@type": "Person", "name": {{ clean | jsonify }}{% if clean == 'L. V. Nguyen' %}, "@id": {{ person_id | jsonify }}{% endif %} }{% unless forloop.last %},{% endunless %}{% endfor %}
             ],
+            {%- comment -%} Journals and magazines are Periodicals; anything badged
+              "Conference" is a PublicationEvent. {%- endcomment -%}
+            {%- if item.pub_last contains "Conference" %}{% assign venue_type = "PublicationEvent" %}{% else %}{% assign venue_type = "Periodical" %}{% endif %}
             "isPartOf": {
-              "@type": "PublicationEvent",
+              "@type": {{ venue_type | jsonify }},
               "name": {{ item.pub | strip_html | strip | jsonify }}
-            }{% for link in item.links %}{% if forloop.first %},
+            }{% if item.links.DOI %},
+            "identifier": {
+              "@type": "PropertyValue",
+              "propertyID": "DOI",
+              "value": {{ item.links.DOI | remove: "https://doi.org/" | jsonify }}
+            },
+            "sameAs": {{ item.links.DOI | jsonify }}{% endif %}{% for link in item.links %}{% if forloop.first %},
             "url": {% if link[1].url %}{{ link[1].url | jsonify }}{% else %}{{ link[1] | jsonify }}{% endif %}{% endif %}{% endfor %}
           }
         }{% unless forloop.last %},{% endunless %}{% endfor %}
